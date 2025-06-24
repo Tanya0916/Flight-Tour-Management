@@ -278,7 +278,9 @@ private:
 
     bool isCrewAvailable(int crewID, int dep, int arr)
     {
+        // Get the set of flights already assigned to this crew member
         set<int> &assigned = crew[crewID].assignedFlights;
+        // Check for time conflicts with each assigned flight
         for (set<int>::iterator it = assigned.begin(); it != assigned.end(); ++it)
         {
             int fid = *it;
@@ -286,21 +288,22 @@ private:
             if (idx == -1)
                 continue;
             Flight &f = flights[idx];
-            // If times overlap, not available
+            // If times overlap, crew is not available for this flight
             if (!(arr <= f.departureTime || dep >= f.arrivalTime))
             {
                 return false;
             }
         }
+        // No conflicts found, crew is available
         return true;
     }
 
-    // Backtracking for crew assignment
+    // Backtracking for crew assignment to a flight
     bool assignCrewToFlight(int flightIdx, vector<int> &pilotIDs, vector<int> &attendantIDs)
     {
         Flight &f = flights[flightIdx];
 
-        // Count already assigned pilots and attendants
+        // Count already assigned pilots and attendants for this flight
         int pilotCount = 0, attendantCount = 0;
         for (int cid : f.crewAssigned)
         {
@@ -309,6 +312,7 @@ private:
             else if (crew[cid].role == "Attendant")
                 attendantCount++;
         }
+        // If already enough crew assigned, skip assignment
         if (pilotCount >= 2 && attendantCount >= 2)
         {
             cout << "Flight " << f.flightID << ": Already has 2 pilots and 2 attendants assigned. Skipping assignment.\n";
@@ -339,12 +343,12 @@ private:
             for (int pid : assignedPilots)
             {
                 f.crewAssigned.push_back(pid);
-                crew[pid].assignedFlights.insert(f.flightID);
+                crew[pid].assignedFlights.insert(flightID);
             }
             for (int aid : assignedAttendants)
             {
                 f.crewAssigned.push_back(aid);
-                crew[aid].assignedFlights.insert(f.flightID);
+                crew[aid].assignedFlights.insert(flightID);
             }
             // cout << "Flight " << f.flightID << ": Crew assigned";
             // cout << "  Pilots: ";
