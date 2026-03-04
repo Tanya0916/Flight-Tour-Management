@@ -1,6 +1,6 @@
-# Airline Management System
+#Flight Tour Management System
 
-This is a comprehensive Airline Management System developed in C++. It provides a command-line interface to manage flights, crew, passengers, and bookings. The system is designed with distinct roles for Administrators and Passengers, each with a specific set of functionalities. It also incorporates advanced features like dynamic pricing, route optimization using Dijkstra's algorithm, and crew management.
+This is a comprehensive Flight Tour Management System developed in C++. It provides a command-line interface to manage flights, crew, passengers, and bookings. The system is designed with distinct roles for Administrators and Passengers, each with a specific set of functionalities. It also incorporates advanced features like dynamic pricing, route optimization using Dijkstra's algorithm, and crew management.
 
 ## 🚀 Features
 
